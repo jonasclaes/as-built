@@ -9,7 +9,7 @@
 	export let data: LayoutData;
 </script>
 
-<div class="hidden flex-col md:flex">
+<div class="hidden flex-col sm:flex">
 	<div class="border-b">
 		<div class="flex h-16 items-center px-4">
 			<TeamSwitcherNavigation />

@@ -1,15 +1,23 @@
 <script lang="ts">
-	import MainNav from '$lib/components/main-nav.svelte';
 	import '../app.pcss';
-	import type { PageData } from './$types';
+	import TeamSwitcherNavigation from '$lib/components/navigation/team-switcher-navigation.svelte';
+	import MainNavigation from '$lib/components/navigation/main-navigation.svelte';
+	import SearchNavigation from '$lib/components/navigation/search-navigation.svelte';
+	import UserNavigation from '$lib/components/navigation/user-navigation.svelte';
+	import type { LayoutData } from './$types';
 
-	export let data: PageData;
+	export let data: LayoutData;
 </script>
 
 <div class="hidden flex-col md:flex">
 	<div class="border-b">
 		<div class="flex h-16 items-center px-4">
-			<MainNav />
+			<TeamSwitcherNavigation />
+			<MainNavigation class="mx-6" />
+			<div class="ml-auto flex items-center space-x-4">
+				<SearchNavigation />
+				<UserNavigation />
+			</div>
 		</div>
 	</div>
 	<main>

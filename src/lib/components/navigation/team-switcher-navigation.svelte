@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { cn } from '$lib/utils';
-	import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-	import { Button } from '../ui/button';
-	import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+	import { Avatar, AvatarFallback, AvatarImage } from '$lib/components/ui/avatar';
+	import { Button } from '$lib/components/ui/button';
+	import { Popover, PopoverContent, PopoverTrigger } from '$lib/components/ui/popover';
 	import {
 		Command,
 		CommandEmpty,
@@ -11,7 +11,7 @@
 		CommandItem,
 		CommandList,
 		CommandSeparator
-	} from '../ui/command';
+	} from '$lib/components/ui/command';
 	import CaretSort from 'svelte-radix/CaretSort.svelte';
 	import Check from 'svelte-radix/Check.svelte';
 	import PlusCircled from 'svelte-radix/PlusCircled.svelte';

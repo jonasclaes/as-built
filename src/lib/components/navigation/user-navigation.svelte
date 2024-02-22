@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-	import Button from '../ui/button/button.svelte';
+	import { Avatar, AvatarFallback, AvatarImage } from '$lib/components/ui/avatar';
+	import Button from '$lib/components/ui/button/button.svelte';
 	import {
 		DropdownMenu,
 		DropdownMenuContent,
@@ -10,7 +10,7 @@
 		DropdownMenuLabel,
 		DropdownMenuSeparator,
 		DropdownMenuTrigger
-	} from '../ui/dropdown-menu';
+	} from '$lib/components/ui/dropdown-menu';
 </script>
 
 <DropdownMenu>

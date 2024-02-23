@@ -10,7 +10,7 @@
 </script>
 
 <div class="hidden flex-col sm:flex">
-	<div class="border-b">
+	<div class="border-b" data-testid="top-navbar">
 		<div class="flex h-16 items-center px-4">
 			<TeamSwitcherNavigation />
 			<MainNavigation class="mx-6" />

@@ -1,10 +1,6 @@
 import { type VercelKV, createClient } from '@vercel/kv';
 import type { KeyValueStoreStrategy } from './keyValueStore';
-
-export interface VercelKVStrategyConfig {
-	restApiUrl: string;
-	restApiToken: string;
-}
+import { z } from 'zod';
 
 export class VercelKVStrategy implements KeyValueStoreStrategy {
 	protected readonly client: VercelKV;
@@ -32,3 +28,10 @@ export class VercelKVStrategy implements KeyValueStoreStrategy {
 		return await this.client.keys(pattern);
 	}
 }
+
+export const vercelKVStrategyConfig = z.object({
+	restApiUrl: z.string().url(),
+	restApiToken: z.string()
+});
+
+export type VercelKVStrategyConfig = z.infer<typeof vercelKVStrategyConfig>;

@@ -11,7 +11,7 @@ export const GET: RequestHandler = async ({ params }) => {
 		if (!databaseUrl) {
 			return new Response(
 				JSON.stringify({ success: false, error: { message: 'Tenant not found' } }),
-				{ status: 404 }
+				{ status: 404, headers: { 'Content-Type': 'application/json' } }
 			);
 		}
 
@@ -21,7 +21,8 @@ export const GET: RequestHandler = async ({ params }) => {
 				data: {
 					databaseUrl
 				}
-			})
+			}),
+			{ headers: { 'Content-Type': 'application/json' } }
 		);
 	} catch (error) {
 		return new Response(
@@ -29,7 +30,7 @@ export const GET: RequestHandler = async ({ params }) => {
 				success: false,
 				error: error instanceof Error ? { message: error.message } : error
 			}),
-			{ status: 500 }
+			{ status: 500, headers: { 'Content-Type': 'application/json' } }
 		);
 	}
 };
@@ -42,7 +43,7 @@ export const PUT: RequestHandler = async ({ request, params }) => {
 		if (!databaseUrl) {
 			return new Response(
 				JSON.stringify({ success: false, error: { message: 'Database URL is required' } }),
-				{ status: 400 }
+				{ status: 400, headers: { 'Content-Type': 'application/json' } }
 			);
 		}
 
@@ -53,7 +54,8 @@ export const PUT: RequestHandler = async ({ request, params }) => {
 		return new Response(
 			JSON.stringify({
 				success: true
-			})
+			}),
+			{ headers: { 'Content-Type': 'application/json' } }
 		);
 	} catch (error) {
 		return new Response(
@@ -61,7 +63,7 @@ export const PUT: RequestHandler = async ({ request, params }) => {
 				success: false,
 				error: error instanceof Error ? { message: error.message } : error
 			}),
-			{ status: 500 }
+			{ status: 500, headers: { 'Content-Type': 'application/json' } }
 		);
 	}
 };

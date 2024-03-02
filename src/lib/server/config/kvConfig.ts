@@ -9,12 +9,13 @@ import { VercelKVStrategy, vercelKVStrategyConfig } from '../strategy/keyValueSt
 export const getKeyValueStoreStrategy = (): KeyValueStoreStrategy => {
 	const provider = env.KV_STORE_PROVIDER;
 
-	if (provider === 'cloudflare') return createCloudflareKeyValueStore();
-	if (provider === 'vercel') return createVercelKeyValueStore();
+	if (provider === 'cloudflare') return createCloudflareKVStrategy();
+	if (provider === 'vercel') return createVercelKVStrategy();
+
 	throw new Error('Unsupported KV store provider.');
 };
 
-const createCloudflareKeyValueStore = () => {
+const createCloudflareKVStrategy = () => {
 	const config = cloudflareKVStrategyConfig.parse({
 		accountId: env.CF_ACCOUNT_ID,
 		namespaceId: env.CF_KV_NAMESPACE_ID,
@@ -28,7 +29,7 @@ const createCloudflareKeyValueStore = () => {
 	return new CloudflareKVStrategy(config);
 };
 
-const createVercelKeyValueStore = () => {
+const createVercelKVStrategy = () => {
 	const config = vercelKVStrategyConfig.parse({
 		restApiUrl: env.KV_REST_API_URL,
 		restApiToken: env.KV_REST_API_TOKEN

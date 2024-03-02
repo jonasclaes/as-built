@@ -25,7 +25,7 @@ export class CloudflareKVStrategy implements KeyValueStoreStrategy {
 		this.client = _client;
 	}
 
-	async get(key: string): Promise<string | null> {
+	async get<T>(key: string): Promise<T | null> {
 		const response = await this.client.enterpriseZoneWorkersKV.read(
 			this.config.accountId,
 			this.config.namespaceId,
@@ -36,12 +36,12 @@ export class CloudflareKVStrategy implements KeyValueStoreStrategy {
 		throw new Error('Invalid response from Cloudflare KV');
 	}
 
-	async set(key: string, value: string): Promise<void> {
+	async set<T>(key: string, value: T): Promise<void> {
 		await this.client.enterpriseZoneWorkersKV.add(
 			this.config.accountId,
 			this.config.namespaceId,
 			key,
-			value
+			typeof value !== 'string' ? JSON.stringify(value) : value
 		);
 	}
 

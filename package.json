@@ -22,9 +22,14 @@
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@types/cloudflare": "^2.7.14",
 		"@types/eslint": "8.56.0",
+		"@types/pg": "^8.11.2",
+		"@types/pg-format": "^1.0.5",
+		"@types/uuid": "^9.0.8",
+		"@types/ws": "^8.5.10",
 		"@typescript-eslint/eslint-plugin": "^6.0.0",
 		"@typescript-eslint/parser": "^6.0.0",
 		"autoprefixer": "^10.4.16",
+		"dotenv": "^16.4.5",
 		"drizzle-kit": "^0.20.14",
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
@@ -44,7 +49,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@neondatabase/serverless": "^0.9.0",
 		"@vercel/kv": "^1.0.1",
 		"bits-ui": "^0.18.1",
 		"cloudflare": "^2.9.1",
@@ -52,9 +56,12 @@
 		"cmdk-sv": "^0.0.13",
 		"drizzle-orm": "^0.29.4",
 		"lucide-svelte": "^0.335.0",
+		"pg": "^8.11.3",
+		"pg-format": "^1.0.4",
 		"svelte-radix": "^1.0.1",
 		"tailwind-merge": "^2.2.1",
 		"tailwind-variants": "^0.2.0",
+		"uuid": "^9.0.1",
 		"zod": "^3.22.4"
 	}
 }

@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1709343246303,
+      "tag": "0000_ordinary_punisher",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1709389940813,
+      "tag": "0001_smooth_harrier",
+      "breakpoints": true
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+import { env } from '$env/dynamic/private';
+import { migrate } from 'drizzle-orm/node-postgres/migrator';
+import { getDatabaseStrategy } from '../config/databaseConfig';
+import { getKeyValueStoreStrategy } from '../config/kvConfig';
+import { TenantRepository } from '../repository/tenant';
+import { PgDatabaseStrategy } from '../strategy/database/pg';
+import format from 'pg-format';
+
+export class MultiTenancyService {
+	constructor(
+		protected readonly tenantRepository: TenantRepository = new TenantRepository(
+			getKeyValueStoreStrategy(),
+			getDatabaseStrategy()
+		)
+	) {}
+
+	async createTenant({ name }: MultiTenancyServiceCreateTenantRequestDto) {
+		const tenant = await this.tenantRepository.createTenant({
+			name
+		});
+
+		const databaseName = `tenant-${tenant.id}`;
+		await this.createTenantDatabase(databaseName);
+
+		const databaseUrl = new URL(env.DRIZZLE_DATABASE_URL);
+		databaseUrl.pathname = databaseName;
+
+		this.tenantRepository.setTenantDatabaseUrl(tenant.id.toString(), databaseUrl.toString());
+
+		return tenant;
+	}
+
+	async migrateTenant({ tenantId }: MultiTenancyServiceMigrateTenantRequestDto) {
+		const databaseUrl = await this.tenantRepository.getTenantDatabaseUrlById(tenantId);
+
+		if (!databaseUrl) {
+			throw new Error('Database URL not found for tenant.');
+		}
+
+		const databaseStrategy = new PgDatabaseStrategy({ connectionString: databaseUrl });
+
+		const drizzle = await databaseStrategy.getDrizzle();
+
+		await migrate(drizzle, { migrationsFolder: './drizzle' });
+	}
+
+	protected async createTenantDatabase(databaseName: string) {
+		const databaseStrategy = getDatabaseStrategy();
+
+		const connection = await databaseStrategy.getRawConnection();
+		await connection.query(format('CREATE DATABASE %I', databaseName));
+	}
+}
+
+export interface MultiTenancyServiceCreateTenantRequestDto {
+	name: string;
+}
+
+export interface MultiTenancyServiceMigrateTenantRequestDto {
+	tenantId: string;
+}

@@ -12,11 +12,11 @@ export class VercelKVStrategy implements KeyValueStoreStrategy {
 		});
 	}
 
-	async get(key: string): Promise<string | null> {
+	async get<T>(key: string): Promise<T | null> {
 		return await this.client.get(key);
 	}
 
-	async set(key: string, value: string): Promise<void> {
+	async set<T>(key: string, value: T): Promise<void> {
 		await this.client.set(key, value);
 	}
 

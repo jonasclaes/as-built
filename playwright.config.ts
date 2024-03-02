@@ -11,7 +11,15 @@ const config: PlaywrightTestConfig = {
 		baseURL: process.env.BASE_URL
 	},
 	testDir: 'tests',
-	testMatch: /(.+\.)(test|spec)\.[jt]s/
+	testMatch: /(.+\.)(test|spec)\.[jt]s/,
+	reporter: [
+		[
+			'html',
+			{
+				open: 'never'
+			}
+		]
+	]
 };
 
 export default config;

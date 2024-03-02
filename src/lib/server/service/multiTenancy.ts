@@ -19,6 +19,10 @@ export class MultiTenancyService {
 			name
 		});
 
+		if (!tenant) {
+			throw new Error('Tenant not found.');
+		}
+
 		const databaseName = `tenant-${tenant.id}`;
 		await this.createTenantDatabase(databaseName);
 

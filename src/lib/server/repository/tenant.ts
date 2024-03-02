@@ -16,7 +16,7 @@ export class TenantRepository {
 
 		const tenant = await drizzle.insert(tenants).values(data).returning();
 
-		return tenant[0];
+		return tenant.at(0);
 	}
 
 	async getTenantById(tenantId: number) {
@@ -24,7 +24,7 @@ export class TenantRepository {
 
 		const tenant = await drizzle.select().from(tenants).where(eq(tenants.id, tenantId)).execute();
 
-		return tenant[0];
+		return tenant.at(0);
 	}
 
 	async getTenantDatabaseUrlById(tenantId: string): Promise<string | null> {

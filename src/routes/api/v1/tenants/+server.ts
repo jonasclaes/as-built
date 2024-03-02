@@ -11,6 +11,10 @@ export const POST: RequestHandler = async ({ request }) => {
 		const multiTenancyService = new MultiTenancyService();
 		const tenant = await multiTenancyService.createTenant(data);
 
+		if (!tenant) {
+			return errorResponse(new Error('Failed to create tenant.'), 500);
+		}
+
 		return successResponse(tenant);
 	} catch (error) {
 		return errorResponse(error);

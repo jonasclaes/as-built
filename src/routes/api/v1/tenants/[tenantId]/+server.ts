@@ -13,6 +13,10 @@ export const GET: RequestHandler = async ({ params }) => {
 
 		const tenant = await tenantRepository.getTenantById(Number(params.tenantId));
 
+		if (!tenant) {
+			return errorResponse(new Error('Tenant not found.'), 404);
+		}
+
 		return successResponse(tenant);
 	} catch (error) {
 		return errorResponse(error);

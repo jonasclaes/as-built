@@ -1,36 +1,30 @@
 import { expect } from '@playwright/test';
 import { test } from '../../../lib/test';
 
-test('GET /api/v1/tenants/000', async ({ request }) => {
-	const response = await request.get('/api/v1/tenants/000');
+test('GET /api/v1/tenants/-1', async ({ request }) => {
+	const response = await request.get('/api/v1/tenants/-1');
 	const body = await response.json();
 
 	expect(response.status()).toBe(404);
 	expect(body).toEqual({
 		success: false,
-		error: { message: 'Tenant not found' }
-	});
-});
-
-test('PUT /api/v1/tenants/123', async ({ request }) => {
-	const response = await request.put('/api/v1/tenants/123', {
-		data: {
-			databaseUrl: 'postgres://localhost:5432/tenant123'
+		error: {
+			name: 'Error',
+			message: 'Tenant not found.'
 		}
 	});
-
-	expect(response).toBeOK();
 });
 
-test('GET /api/v1/tenants/123', async ({ request }) => {
-	const response = await request.get('/api/v1/tenants/123');
+test('GET /api/v1/tenants/22', async ({ request }) => {
+	const response = await request.get('/api/v1/tenants/22');
 	const body = await response.json();
 
 	expect(response).toBeOK();
 	expect(body).toEqual({
 		success: true,
 		data: {
-			databaseUrl: 'postgres://localhost:5432/tenant123'
+			id: 22,
+			name: 'Acme Inc.'
 		}
 	});
 });

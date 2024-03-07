@@ -6,9 +6,9 @@ import {
 import type { KeyValueStoreStrategy } from '../strategy/keyValueStore/keyValueStore';
 import { VercelKVStrategy, vercelKVStrategyConfig } from '../strategy/keyValueStore/vercel';
 
-export const getKeyValueStoreStrategy = (): KeyValueStoreStrategy => {
-	const provider = env.KV_STORE_PROVIDER;
-
+export const getKeyValueStoreStrategy = (
+	provider: string = env.KV_STORE_PROVIDER
+): KeyValueStoreStrategy => {
 	if (provider === 'cloudflare') return createCloudflareKVStrategy();
 	if (provider === 'vercel') return createVercelKVStrategy();
 

@@ -1,6 +1,6 @@
 import { PgDatabaseStrategy } from '$lib/server/strategy/database/pg';
 import type { RequestHandler } from './$types';
-import { getDatabaseStrategy } from '$lib/server/config/databaseConfig';
+import { DatabaseConfig } from '$lib/server/config/databaseConfig';
 import { getKeyValueStoreStrategy } from '$lib/server/config/kvConfig';
 import { TenantRepository } from '$lib/server/repository/tenant';
 import { errorResponse, successResponse } from '$lib/server/api/response';
@@ -11,7 +11,10 @@ export const GET: RequestHandler = async ({ locals }) => {
 		return errorResponse(new Error('Missing tenant ID.'), 400);
 	}
 
-	const tenantRepository = new TenantRepository(getKeyValueStoreStrategy(), getDatabaseStrategy());
+	const tenantRepository = new TenantRepository(
+		getKeyValueStoreStrategy(),
+		DatabaseConfig.getInstance().getDatabaseStrategy()
+	);
 	const databaseUrl = await tenantRepository.getTenantDatabaseUrlById(locals.tenantId);
 
 	if (!databaseUrl) {

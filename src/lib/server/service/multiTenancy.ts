@@ -1,17 +1,19 @@
 import { env } from '$env/dynamic/private';
 import { migrate } from 'drizzle-orm/node-postgres/migrator';
-import { getDatabaseStrategy } from '../config/databaseConfig';
+import { DatabaseConfig } from '../config/databaseConfig';
 import { getKeyValueStoreStrategy } from '../config/kvConfig';
 import { TenantRepository } from '../repository/tenant';
 import { PgDatabaseStrategy } from '../strategy/database/pg';
 import format from 'pg-format';
+import type { DatabaseStrategy } from '../strategy/database/database';
 
 export class MultiTenancyService {
 	constructor(
 		protected readonly tenantRepository: TenantRepository = new TenantRepository(
 			getKeyValueStoreStrategy(),
-			getDatabaseStrategy()
-		)
+			DatabaseConfig.getInstance().getDatabaseStrategy()
+		),
+		protected readonly databaseStrategy: DatabaseStrategy = DatabaseConfig.getInstance().getDatabaseStrategy()
 	) {}
 
 	async createTenant({ name }: MultiTenancyServiceCreateTenantRequestDto) {
@@ -49,9 +51,7 @@ export class MultiTenancyService {
 	}
 
 	protected async createTenantDatabase(databaseName: string) {
-		const databaseStrategy = getDatabaseStrategy();
-
-		const connection = await databaseStrategy.getRawConnection();
+		const connection = await this.databaseStrategy.getRawConnection();
 		await connection.query(format('CREATE DATABASE %I', databaseName));
 	}
 }

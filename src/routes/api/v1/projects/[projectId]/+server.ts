@@ -1,10 +1,10 @@
 import { PgDatabaseStrategy } from '$lib/server/strategy/database/pg';
 import type { RequestHandler } from './$types';
 import { DatabaseConfig } from '$lib/server/config/databaseConfig';
-import { getKeyValueStoreStrategy } from '$lib/server/config/kvConfig';
 import { TenantRepository } from '$lib/server/repository/tenant';
 import { errorResponse, successResponse } from '$lib/server/api/response';
 import { ProjectRepository } from '$lib/server/repository/project';
+import { KVConfig } from '$lib/server/config/kvConfig';
 
 export const GET: RequestHandler = async ({ locals }) => {
 	if (!locals.tenantId) {
@@ -12,7 +12,7 @@ export const GET: RequestHandler = async ({ locals }) => {
 	}
 
 	const tenantRepository = new TenantRepository(
-		getKeyValueStoreStrategy(),
+		KVConfig.getInstance().getKeyValueStoreStrategy(),
 		DatabaseConfig.getInstance().getDatabaseStrategy()
 	);
 	const databaseUrl = await tenantRepository.getTenantDatabaseUrlById(locals.tenantId);

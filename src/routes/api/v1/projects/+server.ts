@@ -1,11 +1,11 @@
 import { PgDatabaseStrategy } from '$lib/server/strategy/database/pg';
 import type { RequestHandler } from './$types';
 import { DatabaseConfig } from '$lib/server/config/databaseConfig';
-import { getKeyValueStoreStrategy } from '$lib/server/config/kvConfig';
 import { TenantRepository } from '$lib/server/repository/tenant';
 import { errorResponse, successResponse } from '$lib/server/api/response';
 import { ProjectRepository } from '$lib/server/repository/project';
 import { z } from 'zod';
+import { KVConfig } from '$lib/server/config/kvConfig';
 
 export const POST: RequestHandler = async ({ locals, request }) => {
 	try {
@@ -17,7 +17,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 		const data = postSchema.parse(json);
 
 		const tenantRepository = new TenantRepository(
-			getKeyValueStoreStrategy(),
+			KVConfig.getInstance().getKeyValueStoreStrategy(),
 			DatabaseConfig.getInstance().getDatabaseStrategy()
 		);
 		const databaseUrl = await tenantRepository.getTenantDatabaseUrlById(locals.tenantId);

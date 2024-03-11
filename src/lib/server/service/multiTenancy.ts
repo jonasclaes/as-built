@@ -1,16 +1,16 @@
 import { env } from '$env/dynamic/private';
 import { migrate } from 'drizzle-orm/node-postgres/migrator';
 import { DatabaseConfig } from '../config/databaseConfig';
-import { getKeyValueStoreStrategy } from '../config/kvConfig';
 import { TenantRepository } from '../repository/tenant';
 import { PgDatabaseStrategy } from '../strategy/database/pg';
 import format from 'pg-format';
 import type { DatabaseStrategy } from '../strategy/database/database';
+import { KVConfig } from '../config/kvConfig';
 
 export class MultiTenancyService {
 	constructor(
 		protected readonly tenantRepository: TenantRepository = new TenantRepository(
-			getKeyValueStoreStrategy(),
+			KVConfig.getInstance().getKeyValueStoreStrategy(),
 			DatabaseConfig.getInstance().getDatabaseStrategy()
 		),
 		protected readonly databaseStrategy: DatabaseStrategy = DatabaseConfig.getInstance().getDatabaseStrategy()

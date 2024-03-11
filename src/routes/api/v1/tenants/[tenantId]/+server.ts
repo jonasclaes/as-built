@@ -1,13 +1,13 @@
 import { TenantRepository } from '$lib/server/repository/tenant';
 import type { RequestHandler } from './$types';
-import { getKeyValueStoreStrategy } from '$lib/server/config/kvConfig';
 import { DatabaseConfig } from '$lib/server/config/databaseConfig';
 import { errorResponse, successResponse } from '$lib/server/api/response';
+import { KVConfig } from '$lib/server/config/kvConfig';
 
 export const GET: RequestHandler = async ({ params }) => {
 	try {
 		const tenantRepository = new TenantRepository(
-			getKeyValueStoreStrategy(),
+			KVConfig.getInstance().getKeyValueStoreStrategy(),
 			DatabaseConfig.getInstance().getDatabaseStrategy()
 		);
 

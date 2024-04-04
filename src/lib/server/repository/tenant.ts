@@ -27,6 +27,14 @@ export class TenantRepository {
 		return tenant.at(0);
 	}
 
+	async getAllTenants() {
+		const drizzle = await this.databaseStrategy.getDrizzle();
+
+		const allTenants = await drizzle.select().from(tenants).execute();
+
+		return allTenants;
+	}
+
 	async getTenantDatabaseUrlById(tenantId: string): Promise<string | null> {
 		return this.kvStoreStrategy.get(`${this.keyPrefix}:${tenantId}:databaseUrl`);
 	}

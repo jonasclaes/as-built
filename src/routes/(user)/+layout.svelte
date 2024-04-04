@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '../app.pcss';
+	import '../../app.pcss';
 	import TeamSwitcherNavigation from '$lib/components/navigation/team-switcher-navigation.svelte';
 	import MainNavigation from '$lib/components/navigation/main-navigation.svelte';
 	import SearchNavigation from '$lib/components/navigation/search-navigation.svelte';

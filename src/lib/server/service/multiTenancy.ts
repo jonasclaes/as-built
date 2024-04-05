@@ -61,5 +61,5 @@ export interface MultiTenancyServiceCreateTenantRequestDto {
 }
 
 export interface MultiTenancyServiceMigrateTenantRequestDto {
-	tenantId: string;
+	tenantId: number;
 }

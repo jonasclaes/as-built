@@ -35,7 +35,7 @@ export class TenantRepository {
 		return allTenants;
 	}
 
-	async getTenantDatabaseUrlById(tenantId: string): Promise<string | null> {
+	async getTenantDatabaseUrlById(tenantId: number): Promise<string | null> {
 		return this.kvStoreStrategy.get(`${this.keyPrefix}:${tenantId}:databaseUrl`);
 	}
 

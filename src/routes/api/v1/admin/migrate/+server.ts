@@ -8,7 +8,7 @@ export const POST: RequestHandler = async ({ locals }) => {
 	if (locals.tenantId) {
 		const multiTenancyService = new MultiTenancyService();
 
-		await multiTenancyService.migrateTenant({ tenantId: locals.tenantId });
+		await multiTenancyService.migrateTenant({ tenantId: parseInt(locals.tenantId) });
 
 		return successResponse({
 			tenantId: locals.tenantId

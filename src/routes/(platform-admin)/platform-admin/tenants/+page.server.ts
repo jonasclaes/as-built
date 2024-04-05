@@ -14,7 +14,7 @@ export const load = (async () => {
 	const tenantUrls: Record<number, string> = {};
 
 	for (const tenant of tenants) {
-		const databaseUrl = await tenantRepository.getTenantDatabaseUrlById(tenant.id.toString());
+		const databaseUrl = await tenantRepository.getTenantDatabaseUrlById(tenant.id);
 
 		tenantUrls[tenant.id] = databaseUrl ?? '';
 	}

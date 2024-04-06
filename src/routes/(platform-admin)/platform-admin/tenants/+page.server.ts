@@ -1,12 +1,12 @@
-import { DatabaseConfig } from '$lib/server/config/databaseConfig';
 import { KVConfig } from '$lib/server/config/kvConfig';
+import { getSystemDatabaseStrategy } from '$lib/server/database';
 import { TenantRepository } from '$lib/server/repository/tenant';
 import type { PageServerLoad } from './$types';
 
 export const load = (async () => {
 	const tenantRepository = new TenantRepository(
 		KVConfig.getInstance().getKeyValueStoreStrategy(),
-		DatabaseConfig.getInstance().getDatabaseStrategy()
+		getSystemDatabaseStrategy()
 	);
 
 	const tenants = await tenantRepository.getAllTenants();

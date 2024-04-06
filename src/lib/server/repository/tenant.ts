@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
 import { tenants, type TenantInsert } from '../database/schema/drizzle';
-import type { DatabaseStrategy } from '../strategy/database/database';
 import type { KeyValueStoreStrategy } from '../strategy/keyValueStore/keyValueStore';
+import type { DatabaseStrategy } from '../database/strategy';
 
 export class TenantRepository {
 	protected readonly keyPrefix = 'tenant';

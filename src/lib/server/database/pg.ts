@@ -1,8 +1,7 @@
-import type { DatabaseStrategy } from './database';
 import pg from 'pg';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import * as schema from '$lib/server/database/schema/drizzle';
-import { z } from 'zod';
+import type { DatabaseStrategy } from './strategy';
 
 export class PgDatabaseStrategy implements DatabaseStrategy {
 	constructor(protected readonly config: PgDatabaseStrategyConfig) {}
@@ -23,8 +22,6 @@ export class PgDatabaseStrategy implements DatabaseStrategy {
 	}
 }
 
-export const pgDatabaseStrategyConfig = z.object({
-	connectionString: z.string().url()
-});
-
-export type PgDatabaseStrategyConfig = z.infer<typeof pgDatabaseStrategyConfig>;
+export interface PgDatabaseStrategyConfig {
+	connectionString: string;
+}

@@ -1,8 +1,8 @@
 import { migrate } from 'drizzle-orm/node-postgres/migrator';
 import type { RequestHandler } from './$types';
-import { DatabaseConfig } from '$lib/server/config/databaseConfig';
 import { successResponse } from '$lib/server/api/response';
 import { MultiTenancyService } from '$lib/server/service/multiTenancy';
+import { getSystemDatabaseStrategy } from '$lib/server/database';
 
 export const POST: RequestHandler = async ({ locals }) => {
 	if (locals.tenantId) {
@@ -15,7 +15,7 @@ export const POST: RequestHandler = async ({ locals }) => {
 		});
 	}
 
-	const databaseStrategy = DatabaseConfig.getInstance().getDatabaseStrategy();
+	const databaseStrategy = getSystemDatabaseStrategy();
 	const drizzle = await databaseStrategy.getDrizzle();
 	await migrate(drizzle, { migrationsFolder: './drizzle' });
 

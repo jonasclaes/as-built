@@ -15,6 +15,34 @@
       "when": 1709389940813,
       "tag": "0001_smooth_harrier",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1713517866115,
+      "tag": "0002_sparkling_robbie_robertson",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1713522424045,
+      "tag": "0003_reflective_revanche",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1713526517086,
+      "tag": "0004_reflective_thunderbolt",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1713877541419,
+      "tag": "0005_awesome_hulk",
+      "breakpoints": true
     }
   ]
 }

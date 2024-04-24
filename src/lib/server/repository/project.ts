@@ -1,5 +1,5 @@
 import { projects, type ProjectInsert } from '../database/schema/drizzle';
-import type { DatabaseStrategy } from '../strategy/database/database';
+import type { DatabaseStrategy } from '../database/strategy';
 
 export class ProjectRepository {
 	constructor(protected readonly databaseStrategy: DatabaseStrategy) {}

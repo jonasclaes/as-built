@@ -14,7 +14,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 		const data = postSchema.parse(json);
 
 		const databaseStrategy = getTenantDatabaseStrategy(parseInt(locals.tenantId));
-		const projectRepository = new ProjectRepository(databaseStrategy);
+		const projectRepository = new ProjectRepository(await databaseStrategy);
 
 		const project = await projectRepository.createProject(data);
 

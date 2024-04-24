@@ -1,1 +1,0 @@
-ALTER TABLE "clients" RENAME COLUMN "detetedAt" TO "deletedAt";

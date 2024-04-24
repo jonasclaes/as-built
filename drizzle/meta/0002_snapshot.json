@@ -1,5 +1,5 @@
 {
-  "id": "2a1fb5db-105a-421c-9b9f-61c5efed5b2d",
+  "id": "6bd113c6-41d2-4a75-8b81-ad940980873f",
   "prevId": "5ee08fa5-4d87-471b-b674-5995ef771605",
   "version": "5",
   "dialect": "pg",
@@ -34,8 +34,8 @@
           "notNull": true,
           "default": "now()"
         },
-        "detetedAt": {
-          "name": "detetedAt",
+        "deletedAt": {
+          "name": "deletedAt",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false

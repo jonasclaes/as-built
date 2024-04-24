@@ -3,5 +3,5 @@ CREATE TABLE IF NOT EXISTS "clients" (
 	"clientName" varchar(256),
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL,
-	"detetedAt" timestamp
+	"deletedAt" timestamp
 );

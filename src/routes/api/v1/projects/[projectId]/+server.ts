@@ -11,7 +11,7 @@ export const GET: RequestHandler = async ({ locals }) => {
 	const databaseStrategy = await getTenantDatabaseStrategy(parseInt(locals.tenantId));
 	const projectRepository = new ProjectRepository(databaseStrategy);
 
-	const projectsArray = await projectRepository.getProjects();
+	const projectsArray = await projectRepository.getAllProjects();
 
 	return successResponse(projectsArray);
 };

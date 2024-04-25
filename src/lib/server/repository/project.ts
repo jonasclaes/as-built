@@ -9,14 +9,14 @@ export class ProjectRepository {
 
 		const project = await drizzle.insert(projects).values(data).returning();
 
-		return project[0];
+		return project.at(0);
 	}
 
-	async getProjects() {
+	async getAllProjects() {
 		const drizzle = await this.databaseStrategy.getDrizzle();
 
-		const _projects = await drizzle.select().from(projects).execute();
+		const allProjects = await drizzle.select().from(projects).execute();
 
-		return _projects;
+		return allProjects;
 	}
 }

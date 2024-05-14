@@ -3,6 +3,24 @@ import { migrate } from 'drizzle-orm/node-postgres/migrator';
 import { TenantRepository } from '../repository/tenant';
 import format from 'pg-format';
 import { getSystemDatabaseStrategy, getTenantDatabaseStrategy } from '../database';
+import path from 'path';
+import fs from 'fs';
+
+const findServerFolderPath = (startPath: string) => {
+	let currentPath = startPath;
+
+	while (currentPath !== path.parse(currentPath).root) {
+		const potentialRootPath = path.join(currentPath, '.svelte-kit');
+
+		if (fs.existsSync(potentialRootPath)) {
+			return path.resolve(potentialRootPath);
+		}
+
+		currentPath = path.dirname(currentPath);
+	}
+
+	throw new Error('.svelte-kit folder not found.');
+};
 
 export class TenantService {
 	constructor(
@@ -41,7 +59,11 @@ export class TenantService {
 
 		const drizzle = await databaseStrategy.getDrizzle();
 
-		await migrate(drizzle, { migrationsFolder: './drizzle' });
+		const drizzleFolder = import.meta.env.PROD
+			? path.resolve(findServerFolderPath(import.meta.filename), 'output', 'server', 'drizzle')
+			: path.resolve('drizzle');
+
+		await migrate(drizzle, { migrationsFolder: drizzleFolder });
 	}
 
 	protected async createTenantDatabase(databaseName: string) {

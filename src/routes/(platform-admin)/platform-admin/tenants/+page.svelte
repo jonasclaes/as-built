@@ -1,5 +1,5 @@
 <script lang="ts">
-	import TenantContext, { tenantContextKey } from '$lib/components/context/TenantContext.svelte';
+	import { invalidateAll } from '$app/navigation';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -51,6 +51,7 @@
 
 		if (response.ok) {
 			alert('Tenant created');
+			await invalidateAll();
 		} else {
 			alert('Failed to create tenant');
 		}
@@ -80,7 +81,7 @@
 			<tr>
 				<td>{tenant.id}</td>
 				<td>{tenant.name}</td>
-				<td>{data.tenantUrls[tenant.id]}</td>
+				<td>{tenant.databaseUrl}</td>
 				<td>
 					<button on:click={() => migrateTenant(tenant.id)}>Migrate</button>
 					<button on:click={() => impersonateTenant(tenant.id)}>Impersonate</button>

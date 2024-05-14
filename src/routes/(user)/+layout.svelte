@@ -10,7 +10,7 @@
 	export let data: LayoutData;
 </script>
 
-<TenantContext bind:tenantId={data.tenantId}>
+<TenantContext bind:initialTenantId={data.tenantId}>
 	<div class="hidden flex-col sm:flex">
 		<div class="border-b" data-testid="top-navbar">
 			<div class="flex h-16 items-center px-4">

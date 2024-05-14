@@ -1,14 +1,17 @@
 <script lang="ts" context="module">
-	export const tenantContextKey = 'tenant';
-	export type TenantContextType = number;
+	const tenantContextKey = 'tenant';
+	export type TenantContextType = { id: Writable<number | undefined> };
+	export const getTenantContext = () => getContext<TenantContextType>(tenantContextKey);
 </script>
 
 <script lang="ts">
-	import { setContext } from 'svelte';
+	import { getContext, setContext } from 'svelte';
+	import { writable, type Writable } from 'svelte/store';
 
-	export let tenantId: number;
+	export let initialTenantId: number | undefined;
+	const tenantId = writable<number | undefined>(initialTenantId);
 
-	setContext<TenantContextType>(tenantContextKey, tenantId);
+	setContext<TenantContextType>(tenantContextKey, { id: tenantId });
 </script>
 
 <slot />

@@ -15,6 +15,13 @@
       "when": 1709389940813,
       "tag": "0001_smooth_harrier",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1714310142357,
+      "tag": "0002_puzzling_madripoor",
+      "breakpoints": true
     }
   ]
 }

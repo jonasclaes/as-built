@@ -1,4 +1,4 @@
-import { MultiTenancyService } from '$lib/server/service/multiTenancy';
+import { TenantService } from '$lib/server/service/tenantService';
 import { z } from 'zod';
 import type { RequestHandler } from './$types';
 import { errorResponse, successResponse } from '$lib/server/api/response';
@@ -8,9 +8,9 @@ export const POST: RequestHandler = async ({ request }) => {
 		const json = await request.json();
 		const data = schema.parse(json);
 
-		const multiTenancyService = new MultiTenancyService();
+		const tenantService = new TenantService();
 
-		const tenant = await multiTenancyService.createTenant(data);
+		const tenant = await tenantService.createTenant(data);
 
 		if (!tenant) {
 			return errorResponse(new Error('Failed to create tenant.'), 500);

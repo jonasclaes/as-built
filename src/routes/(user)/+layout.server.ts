@@ -1,14 +1,10 @@
-import { error } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
+import { TenantCookieService } from '$lib/server/service/tenantCookieService';
+
+export const ssr = false;
 
 export const load = (async ({ cookies }) => {
-	const tenantIdCookie = cookies.get('tenantId');
-
-	if (!tenantIdCookie) {
-		return error(404, 'Tenant not found');
-	}
-
-	const tenantId = parseInt(tenantIdCookie);
+	const tenantId = new TenantCookieService(cookies).getTenantId();
 
 	return {
 		tenantId

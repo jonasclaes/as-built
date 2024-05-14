@@ -25,7 +25,7 @@ export const POST: RequestHandler = async () => {
 	const drizzle = await getSystemDatabaseDrizzle();
 
 	const drizzleFolder = import.meta.env.PROD
-		? path.resolve(findServerFolderPath(import.meta.filename), 'output', 'server', 'drizzle')
+		? path.resolve(findServerFolderPath(__dirname), 'output', 'server', 'drizzle')
 		: path.resolve('drizzle');
 
 	await migrate(drizzle, { migrationsFolder: drizzleFolder });

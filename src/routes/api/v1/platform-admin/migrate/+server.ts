@@ -34,6 +34,8 @@ export const POST: RequestHandler = async () => {
 			)
 		: path.resolve('drizzle');
 
+	console.log(drizzleFolder);
+
 	await migrate(drizzle, { migrationsFolder: drizzleFolder });
 
 	return successResponse({});

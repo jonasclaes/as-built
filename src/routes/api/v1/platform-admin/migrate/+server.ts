@@ -35,7 +35,11 @@ export const POST: RequestHandler = async () => {
 		: path.resolve('drizzle');
 
 	console.log(drizzleFolder);
-	console.log(fs.readdirSync(drizzleFolder));
+	console.log(
+		fs.readdirSync(
+			path.resolve(findServerFolderPath(fileURLToPath(import.meta.url)), 'output', 'server')
+		)
+	);
 
 	await migrate(drizzle, { migrationsFolder: drizzleFolder });
 

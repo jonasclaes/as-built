@@ -6,6 +6,8 @@ let tenant: Tenant;
 let project: Project;
 
 test.beforeAll(async ({ request }) => {
+	test.fixme(true, 'Migrations in the cloud should be fixed.');
+
 	const tenantResponse = await request.post('/api/v1/platform-admin/tenants', {
 		data: { name: 'Acme Inc.' }
 	});
@@ -23,6 +25,8 @@ test.beforeAll(async ({ request }) => {
 });
 
 test('GET /api/v1/projects/[invalidProjectId]', async ({ request }) => {
+	test.fixme(true, 'Migrations in the cloud should be fixed.');
+
 	const response = await request.get('/api/v1/projects/-1', {
 		headers: { 'X-Tenant-Id': tenant.id.toString() }
 	});
@@ -39,6 +43,8 @@ test('GET /api/v1/projects/[invalidProjectId]', async ({ request }) => {
 });
 
 test('GET /api/v1/projects/[validProjectId]', async ({ request }) => {
+	test.fixme(true, 'Migrations in the cloud should be fixed.');
+
 	const response = await request.get('/api/v1/projects/1', {
 		headers: { 'X-Tenant-Id': tenant.id.toString() }
 	});

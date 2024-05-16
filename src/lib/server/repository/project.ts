@@ -1,3 +1,4 @@
+import { eq } from 'drizzle-orm';
 import { projects, type ProjectInsert } from '../database/schema/drizzle';
 import type { DatabaseStrategy } from '../database/strategy';
 
@@ -9,14 +10,26 @@ export class ProjectRepository {
 
 		const project = await drizzle.insert(projects).values(data).returning();
 
-		return project[0];
+		return project.at(0);
 	}
 
-	async getProjects() {
+	async getAllProjects() {
 		const drizzle = await this.databaseStrategy.getDrizzle();
 
-		const _projects = await drizzle.select().from(projects).execute();
+		const allProjects = await drizzle.select().from(projects).execute();
 
-		return _projects;
+		return allProjects;
+	}
+
+	async getProjectById(projectId: number) {
+		const drizzle = await this.databaseStrategy.getDrizzle();
+
+		const allProjects = await drizzle
+			.select()
+			.from(projects)
+			.where(eq(projects.id, projectId))
+			.execute();
+
+		return allProjects.at(0);
 	}
 }

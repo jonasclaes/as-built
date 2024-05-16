@@ -1,15 +1,11 @@
 import { eq } from 'drizzle-orm';
 import { tenants, type TenantInsert } from '../database/schema/drizzle';
-import type { KeyValueStoreStrategy } from '../strategy/keyValueStore/keyValueStore';
 import type { DatabaseStrategy } from '../database/strategy';
 
 export class TenantRepository {
 	protected readonly keyPrefix = 'tenant';
 
-	constructor(
-		protected readonly kvStoreStrategy: KeyValueStoreStrategy,
-		protected readonly databaseStrategy: DatabaseStrategy
-	) {}
+	constructor(protected readonly databaseStrategy: DatabaseStrategy) {}
 
 	async createTenant(data: TenantInsert) {
 		const drizzle = await this.databaseStrategy.getDrizzle();
@@ -35,11 +31,15 @@ export class TenantRepository {
 		return allTenants;
 	}
 
-	async getTenantDatabaseUrlById(tenantId: number): Promise<string | null> {
-		return this.kvStoreStrategy.get(`${this.keyPrefix}:${tenantId}:databaseUrl`);
-	}
+	async updateTenantById(tenantId: number, data: TenantInsert) {
+		const drizzle = await this.databaseStrategy.getDrizzle();
 
-	async setTenantDatabaseUrl(tenantId: string, databaseUrl: string): Promise<void> {
-		return this.kvStoreStrategy.set(`${this.keyPrefix}:${tenantId}:databaseUrl`, databaseUrl);
+		const tenant = await drizzle
+			.update(tenants)
+			.set(data)
+			.where(eq(tenants.id, tenantId))
+			.returning();
+
+		return tenant.at(0);
 	}
 }

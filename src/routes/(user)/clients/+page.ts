@@ -1,5 +1,5 @@
 import { Fetch, TenantFetch } from '$lib/helper/fetch';
-import type { Project } from '$lib/server/database/schema/drizzle';
+import type { Client } from '$lib/server/database/schema/drizzle';
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 
@@ -15,7 +15,7 @@ export const load = (async ({ fetch, parent }) => {
 		error(clientsResponse.status, clientsJson.error.message);
 	}
 
-	const clients: Project[] = clientsJson.data;
+	const clients: Client[] = clientsJson.data;
 
 	return { clients };
 }) satisfies PageLoad;

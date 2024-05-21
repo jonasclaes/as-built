@@ -33,9 +33,9 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 		const databaseStrategy = await getTenantDatabaseStrategy(locals.tenantId);
 		const clientRepository = new ClientRepository(databaseStrategy);
 
-		const project = await clientRepository.createProject(data);
+		const client = await clientRepository.createClient(data);
 
-		return successResponse(project);
+		return successResponse(client);
 	} catch (error) {
 		return errorResponse(error);
 	}

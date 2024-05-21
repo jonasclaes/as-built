@@ -5,7 +5,7 @@ import type { DatabaseStrategy } from '../database/strategy';
 export class ClientRepository {
 	constructor(protected readonly databaseStrategy: DatabaseStrategy) {}
 
-	async createProject(data: ClientInsert) {
+	async createClient(data: ClientInsert) {
 		const drizzle = await this.databaseStrategy.getDrizzle();
 
 		const client = await drizzle.insert(clients).values(data).returning();
@@ -21,13 +21,13 @@ export class ClientRepository {
 		return allClients;
 	}
 
-	async getProjectById(clinetId: number) {
+	async getClientById(clientId: number) {
 		const drizzle = await this.databaseStrategy.getDrizzle();
 
 		const allClients = await drizzle
 			.select()
 			.from(clients)
-			.where(eq(clients.id, clinetId))
+			.where(eq(clients.id, clientId))
 			.execute();
 
 		return allClients.at(0);

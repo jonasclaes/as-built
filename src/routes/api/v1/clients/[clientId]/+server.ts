@@ -9,13 +9,13 @@ export const GET: RequestHandler = async ({ locals, params }) => {
 	}
 
 	const databaseStrategy = await getTenantDatabaseStrategy(locals.tenantId);
-	const projectRepository = new ClientRepository(databaseStrategy);
+	const clientRepository = new ClientRepository(databaseStrategy);
 
-	const project = await projectRepository.getClientById(parseInt(params.clientId));
+	const client = await clientRepository.getClientById(parseInt(params.clientId));
 
-	if (!project) {
-		return errorResponse(new Error('Project not found.'), 404);
+	if (!client) {
+		return errorResponse(new Error('Client not found.'), 404);
 	}
 
-	return successResponse(project);
+	return successResponse(client);
 };

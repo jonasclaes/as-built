@@ -44,3 +44,28 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 const postSchema = z.object({
 	name: z.string()
 });
+
+export const PUT: RequestHandler = async ({ locals, request }) => {
+	try {
+		if (!locals.tenantId) {
+			return errorResponse(new Error('Missing tenant ID.'), 400);
+		}
+
+		const json = await request.json();
+		const data = putSchema.parse(json);
+
+		const databaseStrategy = await getTenantDatabaseStrategy(locals.tenantId);
+		const clientRepository = new ClientRepository(databaseStrategy);
+
+		const updatedClient = await clientRepository.editClientName(data.clientId, data.newName);
+
+		return successResponse(updatedClient);
+	} catch (error) {
+		return errorResponse(error);
+	}
+};
+
+const putSchema = z.object({
+	clientId: z.number(),
+	newName: z.string()
+});

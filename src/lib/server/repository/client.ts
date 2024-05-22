@@ -32,4 +32,17 @@ export class ClientRepository {
 
 		return allClients.at(0);
 	}
+
+	async editClientName(clientId: number, newName: string) {
+		const drizzle = await this.databaseStrategy.getDrizzle();
+		const currentTimestamp = new Date();
+
+		const updatedClient = await drizzle
+			.update(clients)
+			.set({ name: newName, updatedAt: currentTimestamp })
+			.where(eq(clients.id, clientId))
+			.returning();
+
+		return updatedClient.at(0);
+	}
 }

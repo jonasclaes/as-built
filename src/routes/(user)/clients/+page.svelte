@@ -25,11 +25,10 @@
 </script>
 
 <section class="flex-1 space-y-4 p-8 pt-6">
-	<div class="flex items-center justify-between space-y-2">
+	<header class="flex items-center justify-between space-y-2">
 		<h2 class="text-3xl font-bold tracking-tight">Clients</h2>
-	</div>
+	</header>
 	<div>
-		<h2 class="fond-bolder text-2xl">Add client</h2>
 		<form on:submit|preventDefault={createClient}>
 			<label for="clientName">Client name</label>
 			<input type="text" id="clientName" name="clientName" />

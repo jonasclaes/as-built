@@ -3,6 +3,11 @@
 
 	export let data: PageData;
 
+	const formatTimestamp = (timestamp: string) => {
+		const data = new Date(timestamp);
+		return data.toLocaleString();
+	};
+
 	const createClient = async (event: Event) => {
 		const form = event.target as HTMLFormElement;
 		const formData = new FormData(form);
@@ -40,17 +45,17 @@
 			<tr>
 				<th> Client ID </th>
 				<th> Client Name </th>
+				<th> Created At</th>
+				<th> Updated At</th>
 			</tr>
 		</thead>
 		<tbody>
 			{#each data.clients as client}
 				<tr>
-					<td>
-						{client.id}
-					</td>
-					<td>
-						{client.name}
-					</td>
+					<td>{client.id}</td>
+					<td>{client.name}</td>
+					<td>{formatTimestamp(client.createdAt.toString())}</td>
+					<td>{formatTimestamp(client.updatedAt.toString())}</td>
 				</tr>
 			{/each}
 		</tbody>

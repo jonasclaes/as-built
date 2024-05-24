@@ -3,10 +3,6 @@
 
 	export let data: PageData;
 
-	const formatTimestamp = (timestamp: string) => {
-		const data = new Date(timestamp);
-		return data.toLocaleString();
-	};
 
 	const createClient = async (event: Event) => {
 		const form = event.target as HTMLFormElement;
@@ -54,8 +50,8 @@
 				<tr>
 					<td>{client.id}</td>
 					<td>{client.name}</td>
-					<td>{formatTimestamp(client.createdAt.toString())}</td>
-					<td>{formatTimestamp(client.updatedAt.toString())}</td>
+					<td>{client.createdAt.toISOString}</td>
+					<td>{client.updatedAt.toISOString}</td>
 				</tr>
 			{/each}
 		</tbody>

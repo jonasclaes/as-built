@@ -33,7 +33,7 @@ export class ClientRepository {
 		return allClients.at(0);
 	}
 
-	async editClientName(clientId: number, newName: string) {
+	async updateClient(clientId: number, newName: string) {
 		const drizzle = await this.databaseStrategy.getDrizzle();
 		const currentTimestamp = new Date();
 

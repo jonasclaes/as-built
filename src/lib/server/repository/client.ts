@@ -33,13 +33,13 @@ export class ClientRepository {
 		return allClients.at(0);
 	}
 
-	async updateClient(clientId: number, newName: string) {
+	async updateClient(clientId: number, update: Partial<ClientInsert>) {
 		const drizzle = await this.databaseStrategy.getDrizzle();
 		const currentTimestamp = new Date();
 
 		const updatedClient = await drizzle
 			.update(clients)
-			.set({ name: newName, updatedAt: currentTimestamp })
+			.set({ name: update.name, updatedAt: currentTimestamp })
 			.where(eq(clients.id, clientId))
 			.returning();
 

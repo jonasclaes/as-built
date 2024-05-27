@@ -33,13 +33,11 @@ export const PUT: RequestHandler = async ({ locals, request, params }) => {
 		const databaseStrategy = await getTenantDatabaseStrategy(locals.tenantId);
 		const clientRepository = new ClientRepository(databaseStrategy);
 		const clientId = parseInt(params.clientId);
-		//Check to see if client exists
 		const client = await clientRepository.getClientById(clientId);
 		if (!client) {
 			return errorResponse(new Error('Client not found.'), 404);
 		}
-
-		const updatedClient = await clientRepository.updateClient(clientId, data.newName);
+		const updatedClient = await clientRepository.updateClient(clientId, { name: data.newName });
 
 		return successResponse(updatedClient);
 	} catch (error) {

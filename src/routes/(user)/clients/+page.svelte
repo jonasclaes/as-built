@@ -3,7 +3,6 @@
 
 	export let data: PageData;
 
-
 	const createClient = async (event: Event) => {
 		const form = event.target as HTMLFormElement;
 		const formData = new FormData(form);
@@ -50,8 +49,8 @@
 				<tr>
 					<td>{client.id}</td>
 					<td>{client.name}</td>
-					<td>{client.createdAt.toISOString}</td>
-					<td>{client.updatedAt.toISOString}</td>
+					<td>{client.createdAt}</td>
+					<td>{client.updatedAt}</td>
 				</tr>
 			{/each}
 		</tbody>

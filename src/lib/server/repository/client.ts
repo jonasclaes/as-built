@@ -32,4 +32,17 @@ export class ClientRepository {
 
 		return allClients.at(0);
 	}
+
+	async updateClient(clientId: number, client: Partial<ClientInsert>) {
+		const drizzle = await this.databaseStrategy.getDrizzle();
+		const currentTimestamp = new Date();
+
+		const updatedClient = await drizzle
+			.update(clients)
+			.set({ ...client, updatedAt: currentTimestamp })
+			.where(eq(clients.id, clientId))
+			.returning();
+
+		return updatedClient.at(0);
+	}
 }

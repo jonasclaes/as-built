@@ -40,17 +40,17 @@
 			<tr>
 				<th> Client ID </th>
 				<th> Client Name </th>
+				<th> Created At</th>
+				<th> Updated At</th>
 			</tr>
 		</thead>
 		<tbody>
 			{#each data.clients as client}
 				<tr>
-					<td>
-						{client.id}
-					</td>
-					<td>
-						{client.name}
-					</td>
+					<td>{client.id}</td>
+					<td>{client.name}</td>
+					<td>{client.createdAt}</td>
+					<td>{client.updatedAt}</td>
 				</tr>
 			{/each}
 		</tbody>

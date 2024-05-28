@@ -44,3 +44,4 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 const postSchema = z.object({
 	name: z.string()
 });
+
